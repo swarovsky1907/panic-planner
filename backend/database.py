@@ -11,7 +11,11 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 # 2. Create the SQLAlchemy Engine 
 # This handles the low-level connection pool to your Postgres database
-engine = create_engine(DATABASE_URL)
+engine = create_engine(
+    DATABASE_URL,
+    pool_pre_ping=True,
+    pool_recycle=300
+)
 
 # 3. Create a Session Factory
 # Every time a user hits an API route, we will spawn a clean session from this factory
